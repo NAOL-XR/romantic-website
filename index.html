@@ -379,17 +379,34 @@ document.getElementById("yesButton").onclick = function () {
 
     changeScene("scene8", "scene9");
 };
+async function notifyTelegram(time) {
+    try {
+        await fetch("https://myromaticweb.workers.dev", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                time: time
+            })
+        });
+    } catch (error) {
+        console.error("Telegram notification failed:", error);
+    }
+}
 
 
 
 // TIME ⏱️
 document.getElementById("morningButton").onclick = function () {
+    notifyTelegram("Morning 🌄");
     document.getElementById("selectedTime").textContent =
         "I'll see you in the morning. 🌄";
 
     changeScene("scene9", "scene10");
 };
 document.getElementById("afternoonButton").onclick = function () {
+    notifyTelegram("Afternoon ⛅");
     document.getElementById("selectedTime").textContent =
         "I'll see you in the afternoon. ⛅";
 
@@ -397,6 +414,7 @@ document.getElementById("afternoonButton").onclick = function () {
 };
 
 document.getElementById("eveningButton").onclick = function () {
+    notifyTelegram("Evening 🌃");
     document.getElementById("selectedTime").textContent =
         "I'll see you in the evening. 🌃";
 
